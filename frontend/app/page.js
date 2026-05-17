@@ -13,14 +13,24 @@ export default function Home() {
 
   const calculateScore = async () => {
 
-    const response = await fetch(
-      `http://127.0.0.1:8000/calculate?growth=${growth}&competition=${competition}&profit=${profit}`
-    );
+    try {
 
-    const data = await response.json();
+      const response = await fetch(
+        `https://strategy-calculator-api.onrender.com/calculate?growth=${growth}&competition=${competition}&profit=${profit}`
+      );
 
-    setScore(data.score);
-    setRecommendation(data.recommendation);
+      const data = await response.json();
+
+      setScore(data.score);
+      setRecommendation(data.recommendation);
+
+    } catch (error) {
+
+      console.error("Error:", error);
+
+      alert("Backend connection failed");
+
+    }
   };
 
   return (
